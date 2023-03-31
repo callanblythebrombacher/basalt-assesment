@@ -1,0 +1,57 @@
+{
+  "name": "basalt-assesment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "npm": "=8.19.2",
+    "node": "=16.18.1"
+  },
+  "scripts": {
+    "server": "node ./dist-server/bin/www",
+    "transpile": "babel ./server --out-dir dist-server",
+    "clean": "rimraf dist-server",
+    "create": "mkdirp dist-server",
+    "build": "npm-run-all create clean transpile",
+    "dev": "NODE_ENV=development npm-run-all build server",
+    "prod": "NODE_ENV=production npm-run-all build server",
+    "start": "npm run prod",
+    "watch:dev": "nodemon"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "server/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "keywords": [],
+  "author": "Callan Brombacher",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "express": "^4.18.2",
+    "jest": "^29.5.0",
+    "mkdirp": "^2.1.6",
+    "mongodb": "^5.1.0",
+    "nodemon": "^2.0.22",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^4.4.1",
+    "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7"
+  }
+}

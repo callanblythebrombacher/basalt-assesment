@@ -1,0 +1,14 @@
+
+service: basalt-assessment-backend
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: us-east-1
+
+functions:
+  app:
+    handler: ./dist-server/server.handler
+    events:
+      - http: ANY /
