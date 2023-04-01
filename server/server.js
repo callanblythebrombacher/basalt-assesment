@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 const environment = process.env.NODE_ENV
 
-
+console.log(environment)
 const app = express()
 
 
@@ -13,18 +13,19 @@ app.get('/', function (req, res) {
 })
 
 switch (environment){
-    case environment === 'Production':
+    case 'Production':
         dotenv.config({path:process.cwd() + '/.env.production'})
         break
-    case environment === 'Development':
-        dotenv.config({path:process.cwd()+'/.env.development'});
+    case 'Development':
+        dotenv.config({path:process.cwd()+ '/.env.development'});
+        const port = process.env.PORT || 8000
+        const url = process.env.URL || ''
 
-        const port = process.env.PORT
-        const url = process.env.URL
         app.listen(port, ()=>{
-            `listening on ${url}:${port}`
+            console.log(`listening on ${url}:${port}`)
         })
         break
 }
+
 
 module.exports.handler = ServerlessHttp(app);

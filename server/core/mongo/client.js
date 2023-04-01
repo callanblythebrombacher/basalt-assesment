@@ -24,7 +24,7 @@ export default class MongoClient {
                 const collection  = db.collection(this.collectionName)
                 return collection
             }
-        ).catch(error=>throw error)
+        ).catch(error=>throw new Error(error))
 
     }
 

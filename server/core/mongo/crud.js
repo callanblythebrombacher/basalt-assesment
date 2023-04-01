@@ -14,7 +14,7 @@ export default class MongoCrud{
     }
 
     async init(){
-        this.connection = await this.client.mongoCreateConnection().catch(error=>throw error)
+        this.connection = await this.client.mongoCreateConnection().catch(error=>throw new Error(error))
     }
 
     async read(preDef){
@@ -24,20 +24,20 @@ export default class MongoCrud{
         let result;
 
         switch (type) {
-            case type === 'find':
+            case  'find':
                 result = await this.connection.find(data, options)
                     .then(this.connection.mongoCloseConnection())
-                    .catch(error=>throw error);
+                    .catch(error=>throw new Error(error));
                 break;
-            case type === 'findDistinct':
+            case  'findDistinct':
                 result = await this.connection.distinct(data,options)
                     .then(this.client.mongoCloseConnection())
-                    .catch(error=>throw error);
+                    .catch(error=>throw new Error(error));
                 break;
-            case type === 'aggregate':
+            case  'aggregate':
                 result = await this.connection.aggregate(data, options)
                     .then(this.client.mongoCloseConnection())
-                    .catch(error=>throw error);
+                    .catch(error=>throw new Error(error));
                 break;
         }
         return result
@@ -50,15 +50,15 @@ export default class MongoCrud{
         let result;
 
         switch (type) {
-            case type === 'insertOne':
+            case  'insertOne':
                 result = await this.connection.insertOne(data, options)
                     .then(this.client.mongoCloseConnection())
-                    .catch(error=>throw error);
+                    .catch(error=>throw new Error(error));
                 break;
-            case type === 'insertMany':
+            case  'insertMany':
                 result = await this.connection.insertMany(data, options)
                     .then(this.client.mongoCloseConnection())
-                    .catch(error=>throw error);
+                    .catch(error=>throw new Error(error));
                 break;
         }
         return result
@@ -71,15 +71,15 @@ export default class MongoCrud{
         let result;
 
         switch (type) {
-            case type === 'deleteOne':
+            case  'deleteOne':
                 result = await this.connection.deleteOne(data, options)
                     .then(this.client.mongoCloseConnection())
-                    .catch(error => throw error);
+                    .catch(error => throw new Error(error));
                 break
-            case type === 'deleteMany':
+            case  'deleteMany':
                 result = await this.connection.deleteMany(data, options)
                     .then(this.client.mongoCloseConnection())
-                    .catch(error => throw error);
+                    .catch(error => throw new Error(error));
                 break;
         }
         return result
@@ -92,11 +92,15 @@ export default class MongoCrud{
         let result;
 
         switch (type) {
-            case type === 'upDateOne':
-                result = this.connection.updateOne(filter, data, options).then(this.client.mongoCloseConnection());
+            case  'upDateOne':
+                result = this.connection.updateOne(filter, data, options)
+                    .then(this.client.mongoCloseConnection())
+                    .catch(error => throw new Error(error));
                 break;
-            case type === 'replaceOne':
-                result = this.connection.replaceOne(filter, data, options).then(this.client.mongoCloseConnection());
+            case  'replaceOne':
+                result = this.connection.replaceOne(filter, data, options)
+                    .then(this.client.mongoCloseConnection())
+                    .catch(error => throw new Error(error));
                 break;
         }
     }
