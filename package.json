@@ -19,7 +19,7 @@
     "prod": "cross-env NODE_ENV=Production npm run server",
     "start": "npm run prod",
     "watch:dev": "nodemon",
-    "install:all": "npm-run-all install:react install:express",
+    "install:all": "npm run install:react && npm run install:express",
     "install:react": "cd ./src/react-app && npm install",
     "install:express": "npm install"
   },
