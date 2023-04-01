@@ -4,7 +4,6 @@ frameworkVersion: '2 || 3'
 useDotenv: true
 
 plugins:
-  - serverless-bundle
   - serverless-offline
 
 custom:
