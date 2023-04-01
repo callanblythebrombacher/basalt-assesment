@@ -5,3 +5,4 @@
 .env.production
 /src/react-app/node_modules/
 src/express-server/react-build/
+/src/express-server/config.development.json
