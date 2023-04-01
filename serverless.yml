@@ -17,9 +17,9 @@ provider:
   region: us-east-1
   lambdaHashingVersion: '20201221'
   environment:
-    DB_PASSWORD: ${file(./config.development.json):DB_PASSWORD}
-    DB_USER: ${file(./config.development.json):DB_USER}
-    API_VERSION: ${file(./config.development.json):API_VERSION}
+    DB_PASSWORD: ${file(./config.${opt:stage, 'dev'}.json):DB_PASSWORD, 'zSOFTZf7e4bE4506'}
+    DB_USER: ${file(./config.${opt:stage, 'dev'}.json):DB_USER, 'callanblythebrom'}
+    API_VERSION: ${file(./config.${opt:stage, 'dev'}.json):API_VERSION, '1'}
 
 
 
