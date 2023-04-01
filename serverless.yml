@@ -7,8 +7,30 @@ provider:
   stage: dev
   region: us-east-1
 
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+    - react-app/**
+    - server/**
+
 functions:
   app:
     handler: ./dist-server/server.handler
     events:
-      - http: ANY /
+      - http:
+          path: /api/v_1/listings
+          method: get
+          request:
+            parameters:
+              querystrings:
+                orgID: false
+                agentID: false
+
+      - http:
+          path: /api/v_1/agents
+          method: get
+          request:
+            parameters:
+              querystrings:
+                orgID: true

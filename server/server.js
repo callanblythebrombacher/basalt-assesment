@@ -26,10 +26,6 @@ const defaultURL = `/api/v_${process.env.API_VERSION}`;
 app.use(defaultURL + "/listings", listingsRoute);
 app.use(defaultURL + "/agents", agentsRoute);
 
-app.get("/", function (req, res) {
-    res.send("Hello World!");
-});
-
 const port = process.env.PORT || 8000;
 const url = process.env.URL || "";
 
