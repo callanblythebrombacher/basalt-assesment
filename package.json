@@ -18,7 +18,10 @@
     "dev": "cross-env NODE_ENV=Development npm-run-all build server",
     "prod": "cross-env NODE_ENV=Production npm run server",
     "start": "npm run prod",
-    "watch:dev": "nodemon"
+    "watch:dev": "nodemon",
+    "install:all": "npm-run-all install:react install:express",
+    "install:react": "cd ./react-app && npm install",
+    "install:express": "npm install"
   },
   "babel": {
     "presets": [
