@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import listingsRoute from "./core/routes/listings";
 import agentsRoute from "./core/routes/agents";
+import * as path from "path";
 
 const environment = process.env.NODE_ENV;
 
@@ -26,11 +27,17 @@ const defaultURL = `/api/v_${process.env.API_VERSION}`;
 app.use(defaultURL + "/listings", listingsRoute);
 app.use(defaultURL + "/agents", agentsRoute);
 
+app.use("/client-app", express.static(path.join(__dirname, "react-build")));
+app.use(
+    "/static",
+    express.static(path.join(__dirname, "react-build", "static"))
+);
+
 const port = process.env.PORT || 8000;
 const url = process.env.URL || "";
 
 app.listen(port, () => {
-    console.log(`listening on ${url}:${port}`);
+    console.log(`listening on ${url}:${port}/client-app`);
 });
 
 module.exports.handler = ServerlessHttp(app);

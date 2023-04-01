@@ -3,4 +3,5 @@
 /node_modules
 .env.development
 .env.production
-/react-app/node_modules/
+/src/react-app/node_modules/
+src/express-server/react-build/

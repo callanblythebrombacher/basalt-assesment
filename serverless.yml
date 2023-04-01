@@ -1,36 +1,36 @@
 
-service: basalt-assessment-backend
+service: basalt-assessment
+frameworkVersion: '2 || 3'
+useDotenv: true
+
+plugins:
+  - serverless-bundle
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 4000
 
 provider:
   name: aws
   runtime: nodejs16.x
   stage: dev
   region: us-east-1
+  lambdaHashingVersion: '20201221'
 
 package:
   exclude:
-    - node_modules/**
     - venv/**
-    - react-app/**
-    - server/**
+    - src/react-app/**
+    - src/express-server/**
+    - readme.md
+    - .prettierrc
+    - .npmrc
+    - .gitignore
+  excludeDevDependencies: true
 
 functions:
   app:
     handler: ./dist-server/server.handler
     events:
-      - http:
-          path: /api/v_1/listings
-          method: get
-          request:
-            parameters:
-              querystrings:
-                orgID: false
-                agentID: false
-
-      - http:
-          path: /api/v_1/agents
-          method: get
-          request:
-            parameters:
-              querystrings:
-                orgID: true
+      - httpApi: '*'
