@@ -34,7 +34,7 @@ const listingsService = async (orgID, agentID) => {
         //the options for the operation are declared
         const options = {};
 
-        return await miscFunctions.createMongoQuery(
+        return await miscFunctions.createMongoReadQuery(
             mongoQuery,
             type,
             options,
@@ -52,7 +52,7 @@ const listingsService = async (orgID, agentID) => {
         //the options for the operation are declared
         const options = {};
 
-        return await miscFunctions.createMongoQuery(
+        return await miscFunctions.createMongoReadQuery(
             mongoQuery,
             type,
             options,
