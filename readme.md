@@ -3,7 +3,7 @@
 ## 1. &nbsp;About The App
 
 ### 1.1. &nbsp;Hosting
-- the app is hosted on a aws lambda function:  <a href="https://x71l6czapd.execute-api.us-east-1.amazonaws.com/dev/">click to view</a>
+- the app is hosted on an aws lambda function:  <a href="https://x71l6czapd.execute-api.us-east-1.amazonaws.com/dev/">click to view</a>
 - the db is hosted with atlas and linked to aws
 - the app is a express monolith, which serves a react build through express 
 
@@ -27,6 +27,7 @@
         |-react-app
             |-public
             |-src
+               |-helpers
                |-components
                |   |-atoms
                |   |-molecules
@@ -36,13 +37,12 @@
                |   |-store
                |   |-reducers
                |   |-thunk
-               |-context
                |-assets
                    |-style
                    |-fonts
 
 #### 1.2.2 Backend Architecture and Design
-- Expressjs Rest Api with router -> handler -> service design pattern
+- Expressjs Rest Api Architecture with router -> handler -> service design pattern
 
 ### 1.2.3 Front End Architecture and Design
 - ReactJs and Redux Architecture with a Atomic Design pattern 
@@ -66,7 +66,7 @@
 run the following commands inside the root directory in your cli
 
 1. ```npm install -g serverless```
-2. ```npm run installl:all```
+2. ```npm run install:all```
 3. ```npm run dev``` to run on localhost
 4. ```
    serverless config credentials \
