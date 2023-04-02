@@ -78,5 +78,5 @@ run the following commands inside the root directory in your cli
 
 ## 3. Postman Collection
 
-- <a href="https://www.postman.com/callanblythebrom/workspace/bassalt-assesment"><h3 style="text-decoration:underline"> click here to view collection</h1></a><br/>
+<a href="https://www.postman.com/callanblythebrom/workspace/bassalt-assesment"><h3 style="text-decoration:underline"> click here to view collection</h1></a><br/>
     https://www.postman.com/callanblythebrom/workspace/bassalt-assesment
