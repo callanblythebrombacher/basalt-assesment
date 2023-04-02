@@ -8,3 +8,4 @@ src/express-index/react-build/
 /src/express-index/config.qa.json
 .webpack
 .idea
+serverless.yml
