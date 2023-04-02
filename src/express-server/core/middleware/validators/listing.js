@@ -2,20 +2,8 @@ import { query, validationResult, oneOf } from "express-validator";
 
 export const validateListingReq = [
     oneOf([
-        query("orgID", "invalid url param orgID")
-            .exists()
-            .customSanitizer((value) => {
-                return decodeURIComponent(value);
-            })
-            .isString()
-            .isNumeric(),
-        query("agentID", "invalid url param agentID")
-            .exists()
-            .customSanitizer((value) => {
-                return decodeURIComponent(value);
-            })
-            .isString()
-            .isNumeric(),
+        query("orgID", "invalid url param orgID").exists().isString(),
+        query("agentID", "invalid url param agentID").exists().isString(),
     ]),
     function (req, res, next) {
         const errorValidation = validationResult(req);

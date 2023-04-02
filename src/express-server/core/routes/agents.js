@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.get("/", validateAgentReq, async function (req, res, next) {
     const orgID = req.query?.orgID;
+
     res.status(200).send({ orgID: orgID });
 });
 

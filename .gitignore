@@ -1,8 +1,9 @@
 /.serverless
-/dist-server
+/dist-index
 /node_modules
 .env.development
 .env.production
 /src/react-app/node_modules/
-src/express-server/react-build/
-/src/express-server/config.qa.json
+src/express-index/react-build/
+/src/express-index/config.qa.json
+.webpack

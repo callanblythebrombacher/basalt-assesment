@@ -45,12 +45,9 @@ export default class MongoCrud {
                 await client.mongoCloseConnection();
                 break;
             case "aggregate":
-                result = await this.connection
-                    .aggregate(data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
+                const cursor = await this.connection.aggregate(data, options);
+                result = [];
+                await cursor.forEach((myDoc) => result.push(myDoc));
                 await client.mongoCloseConnection();
                 break;
         }
