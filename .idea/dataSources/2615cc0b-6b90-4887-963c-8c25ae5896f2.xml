@@ -4,14 +4,14 @@
     <root id="1">
       <ServerVersion>5.0.15</ServerVersion>
     </root>
-    <schema id="2" parent="1" name="admin"/>
-    <schema id="3" parent="1" name="local"/>
-    <schema id="4" parent="1" name="test">
+    <schema id="2" parent="1" name="test">
       <Current>1</Current>
     </schema>
-    <table id="5" parent="4" name="agents"/>
-    <table id="6" parent="4" name="listings"/>
-    <table id="7" parent="4" name="organisations"/>
+    <schema id="3" parent="1" name="admin"/>
+    <schema id="4" parent="1" name="local"/>
+    <table id="5" parent="2" name="agents"/>
+    <table id="6" parent="2" name="listings"/>
+    <table id="7" parent="2" name="organisations"/>
     <column id="8" parent="5" name="_id">
       <DasType>String|12s</DasType>
       <Position>1</Position>
