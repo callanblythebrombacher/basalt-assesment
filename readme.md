@@ -60,7 +60,7 @@
 
 ## 2. Installation
 
-- <h3 style="color:red"> important !! use node version 16.18.1 and npm verion 8.19.2, as well as add the serverless.yml file provided by the author of this repo. </h3>
+- <h3 style="color:red"> important !! use node version 16.18.1 and npm verion 8.19.2, as well as add the serverless.yml file provided by the author of this repo in the root directory of the project. </h3>
 ### 2.1 Install serverless
 
 run the following commands inside the root directory in your cli
