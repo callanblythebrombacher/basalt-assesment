@@ -3,7 +3,7 @@
 ## 1. &nbsp;About The App
 
 ### 1.1. &nbsp;Hosting
-- the app is hosted on a aws lambda function:  <a href="https://x71l6czapd.execute-api.us-east-1.amazonaws.com/dev/">click to view</a> <br/> https://x71l6czapd.execute-api.us-east-1.amazonaws.com/dev/
+- the app is hosted on a aws lambda function:  <a href="https://x71l6czapd.execute-api.us-east-1.amazonaws.com/dev/">click to view</a>
 - the db is hosted with atlas and linked to aws
 - the app is a express monolith, which serves a react build through express 
 
@@ -79,5 +79,3 @@ run the following commands inside the root directory in your cli
 ## 3. Postman Collection
 
 <a href="https://www.postman.com/callanblythebrom/workspace/bassalt-assesment">click here to view collection</a>
-<br/>
-    https://www.postman.com/callanblythebrom/workspace/bassalt-assesment
