@@ -1,21 +1,64 @@
 import MongoCrud from "../mongo/crud";
 import { constants } from "../helpers/constants";
-const listingsService = async (orgID) => {
-    const mongoQuery = [{ $match: { organisation: orgID } }];
-    const type = "aggregate";
-    const options = {};
+import miscFunctions from "../helpers/miscFunctions";
 
-    const mongoCrud = new MongoCrud(
-        constants.databaseConstants.collections.listings,
-        process.env.DB_NAME
-    );
+/**
+ * fetches listings associated with either an organisation id or agent id
+ * @param orgID {string} organisation id
+ * @param agentID {string} agent id
+ * @returns {Promise<{isError}|MongoClient|*[]>}
+ */
+const listingsService = async (orgID, agentID) => {
+    if (orgID && !agentID) {
+        //the object for mongo is declared
+        const mongoQuery = [{ $match: { organisation: orgID } }];
 
-    const predef = {
-        type: type,
-        data: mongoQuery,
-        options: options,
-    };
-    return await mongoCrud.read(predef);
+        //the type of operation is declared
+        const type = "aggregate";
+
+        //the options for the operation are declared
+        const options = {};
+
+        return await miscFunctions.createMongoReadQuery(
+            mongoQuery,
+            type,
+            options,
+            constants.databaseConstants.collections.listings
+        );
+    } else if (agentID && !orgID) {
+        //the object for mongo is declared
+        const mongoQuery = [{ $match: { agent: agentID } }];
+        //the type of operation is declared
+        const type = "aggregate";
+
+        //the options for the operation are declared
+        const options = {};
+
+        return await miscFunctions.createMongoQuery(
+            mongoQuery,
+            type,
+            options,
+            constants.databaseConstants.collections.listings
+        );
+    } else if (agentID && orgID) {
+        //the object for mongo is declared
+        const mongoQuery = [
+            { $match: { organisation: orgID, agent: agentID } },
+        ];
+        //the type of operation is declared
+        //the type of operation is declared
+        const type = "aggregate";
+
+        //the options for the operation are declared
+        const options = {};
+
+        return await miscFunctions.createMongoQuery(
+            mongoQuery,
+            type,
+            options,
+            constants.databaseConstants.collections.listings
+        );
+    }
 };
 
 export default {

@@ -1,15 +1,10 @@
 import express from "express";
-import { validateListingReq } from "../middleware/validators/listing";
 const router = express.Router();
-import handlers from "../handlers/listingsHandler";
+import handlers from "../handlers/organisationHandler";
 import miscFunctions from "../helpers/miscFunctions";
-router.get("/", validateListingReq, async function (req, res, next) {
-    //get query params
-    const orgID = req.query?.orgID;
-    const agentID = req.query?.agentID;
-
+router.get("/", async function (req, res, next) {
     //pass params to handler and fetch data from mongodb or return error
-    const result = await handlers.listingsHandler(orgID, agentID);
+    const result = await handlers.organisationHandler();
 
     //if error present log it with time stamp and send a status 500 for internal server error
     if (result?.isError) {

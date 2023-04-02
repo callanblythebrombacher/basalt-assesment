@@ -12,46 +12,58 @@ export default class MongoCrud {
 
     async init() {
         const client = new MongoClient(this.databaseName, this.collectionName);
-        this.connection = await client
-            .mongoCreateConnection()
-            .catch((error) => {
-                return error;
-            });
+        this.connection = await client.mongoCreateConnection();
         return client;
     }
 
     async read(preDef) {
+        //init connection
         const client = await this.init();
-        const { type, data, options = {} } = preDef;
-        let result;
-
-        switch (type) {
-            case "find":
-                result = await this.connection
-                    .find(data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
-            case "findDistinct":
-                result = await this.connection
-                    .distinct(data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
-            case "aggregate":
-                const cursor = await this.connection.aggregate(data, options);
-                result = [];
-                await cursor.forEach((myDoc) => result.push(myDoc));
-                await client.mongoCloseConnection();
-                break;
+        //if connection error
+        if (client?.isError) {
+            return client;
+        } else {
+            //else if no error run read opperation
+            const { type, data, options = {} } = preDef;
+            let result;
+            let cursor;
+            switch (type) {
+                case "find":
+                    result = [];
+                    cursor = await this.connection.find(data, options);
+                    await cursor
+                        .forEach((myDoc) => result.push(myDoc))
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+                case "findDistinct":
+                    result = [];
+                    cursor = await this.connection.distinct(data, options);
+                    await cursor
+                        .forEach((myDoc) => result.push(myDoc))
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+                case "aggregate":
+                    cursor = await this.connection.aggregate(data, options);
+                    result = [];
+                    await cursor
+                        .forEach((myDoc) => result.push(myDoc))
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+            }
+            return result;
         }
-        return result;
     }
 
     /**
@@ -61,85 +73,98 @@ export default class MongoCrud {
      */
     async write(preDef) {
         const client = await this.init();
-        console.log(this.connection);
-        const { type, data, options = {} } = preDef;
-        let result;
+        if (client?.isError) {
+            return client;
+        } else {
+            console.log(this.connection);
+            const { type, data, options = {} } = preDef;
+            let result;
 
-        switch (type) {
-            case "insertOne":
-                result = await this.connection
-                    .insertOne(data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
-            case "insertMany":
-                result = await this.connection
-                    .insertMany(data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
+            switch (type) {
+                case "insertOne":
+                    result = await this.connection
+                        .insertOne(data, options)
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+                case "insertMany":
+                    result = await this.connection
+                        .insertMany(data, options)
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+            }
+            return result;
         }
-        return result;
     }
 
     async delete(preDef) {
         const client = await this.init();
-        const { type, data, options = {} } = predef;
-        let result;
+        if (client?.isError) {
+            return client;
+        } else {
+            const { type, data, options = {} } = predef;
+            let result;
 
-        switch (type) {
-            case "deleteOne":
-                result = await this.connection
-                    .deleteOne(data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
-            case "deleteMany":
-                result = await this.connection
-                    .deleteMany(data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
+            switch (type) {
+                case "deleteOne":
+                    result = await this.connection
+                        .deleteOne(data, options)
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+                case "deleteMany":
+                    result = await this.connection
+                        .deleteMany(data, options)
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+            }
+            return result;
         }
-        return result;
     }
 
     async update(preDef) {
         const client = await this.init();
-        const { filter, data, type, options = {} } = preDef;
-        let result;
+        if (client?.isError) {
+            return client;
+        } else {
+            const { filter, data, type, options = {} } = preDef;
+            let result;
 
-        switch (type) {
-            case "upDateOne":
-                result = this.connection
-                    .updateOne(filter, data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
-            case "replaceOne":
-                result = this.connection
-                    .replaceOne(filter, data, options)
-                    .catch((error) => {
-                        client.mongoCloseConnection();
-                        return error;
-                    });
-                await client.mongoCloseConnection();
-                break;
+            switch (type) {
+                case "upDateOne":
+                    result = this.connection
+                        .updateOne(filter, data, options)
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+                case "replaceOne":
+                    result = this.connection
+                        .replaceOne(filter, data, options)
+                        .catch((error) => {
+                            client.mongoCloseConnection();
+                            return { isError: true, error: error };
+                        });
+                    await client.mongoCloseConnection();
+                    break;
+            }
+            return result;
         }
     }
 }

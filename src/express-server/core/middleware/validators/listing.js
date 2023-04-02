@@ -1,5 +1,9 @@
 import { query, validationResult, oneOf } from "express-validator";
 
+/**
+ * validates request data entering the listing route api/v_1/listing/?orgID=[id]&agentID=[id]
+ * @type {(ValidationChain[]|(function(*, *, *): (*|undefined))|*)[]}
+ */
 export const validateListingReq = [
     oneOf([
         query("orgID", "invalid url param orgID").exists().isString(),

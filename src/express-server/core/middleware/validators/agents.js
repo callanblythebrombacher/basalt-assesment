@@ -1,15 +1,11 @@
 import { query, validationResult } from "express-validator";
 
+/**
+ * validates request data entering the agent route api/v_1/agent/?orgID=[id]
+ * @type {(ValidationChain[]|(function(*, *, *): (*|undefined))|*)[]}
+ */
 export const validateAgentReq = [
-    [
-        query("orgID", "invalid url param orgID")
-            .exists()
-            .customSanitizer((value) => {
-                return decodeURIComponent(value);
-            })
-            .isString()
-            .isNumeric(),
-    ],
+    [query("orgID", "invalid url param orgID").exists().isString()],
     function (req, res, next) {
         const errorValidation = validationResult(req);
         if (errorValidation.errors.length > 0) {
