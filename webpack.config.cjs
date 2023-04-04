@@ -36,7 +36,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: "babel-loader",
                 include:  [__dirname + "/src/express-server/"],
-                exclude: [__dirname + "/src/react-app/", __dirname + "/node_modules/"],
+                exclude: [__dirname + "/src/react-app/", __dirname + "/node_modules/", __dirname + "/.idea/"],
             }
         ]
     }
